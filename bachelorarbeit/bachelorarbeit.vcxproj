@@ -155,14 +155,12 @@
     <ClCompile Include="BarResElement.cpp" />
     <ClCompile Include="BarResElementGenerator.cpp" />
     <ClCompile Include="WORD.cpp" />
-    <ClCompile Include="INTERFACE_FILTER.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BarResElement.h" />
     <ClInclude Include="BarResElementGenerator.h" />
     <ClInclude Include="WORD.h" />
-    <ClInclude Include="INTERFACE_FILTER.h" />
     <ClInclude Include="RandomGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

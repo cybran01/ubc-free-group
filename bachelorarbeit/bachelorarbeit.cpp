@@ -8,70 +8,10 @@ using namespace std;
 
 
 
-/*
-struct KeyHasher //Hash-Funktion für Hash-Map
-{
-	std::size_t operator()(const BarResElement& elem) const
-	{
-		std::stringstream strstream;
-		strstream << elem;
-
-		return std::hash<std::string>()(strstream.str());
-	}
-};
-
-
-unordered_map<BarResElement,BarResElement,KeyHasher> test; //Deklaration der HashMap
-
+typedef int CoeffType; //Datentyp für Koeffizienten der Bar-Auflösung; durch Überladen von den notwendigen arithmetischen Operatoren und spezifizieren einer Methode für Zufallsgeneration des Datentyps in RandomGenerator.cpp (wie für den Typ double) können hier auch benutzerdefinierte Typen benutzt werden, z.B. für exakte rationale Arithmetik 
 
 int main() {
-	BarResElementGenerator* elemgen = new RandomGenerator(1);
 
-	double max = 0;
-	BarResElement maxelem;
-
-	for (int i = 0; i < 1000; i++)
-	{
-		BarResElement elem = elemgen->nextElement(30, 10, 20, 10, 4);
-		double norm = BarResElement::norm(elem);
-		if (norm != 0)
-		{
-			double boundarynorm = BarResElement::norm(BarResElement::boundaryOperator(elem));
-			if (boundarynorm/norm > max)
-			{
-				max = boundarynorm / norm;
-				maxelem = elem;
-			}
-		}
-		
-	}
-	cout << max << "\n" << maxelem << "\n" << BarResElement::boundaryOperator(maxelem);
-	
-	delete elemgen;
-
-	return 0;
-}
-*/
-/*
-template <typename Numeric>
-struct KeyHasher //Hash-Funktion für Hash-Map
-{
-	std::size_t operator()(const BarResElement<Numeric>& elem) const
-	{
-		std::stringstream strstream;
-		strstream << elem;
-
-		return std::hash<std::string>()(strstream.str());
-	}
-};
-
-unordered_map<BarResElement, BarResElement, KeyHasher> test; //Deklaration der HashMap
-*/
-
-typedef int CoeffType;
-
-int main() {
-	
 	int seed, datalength, elementMaxlength, wordMaxlength, expMax, maxKoeff;
 	cout << "Gr\x94\xE1" << "e des Datensatzes eingeben: ";
 	cin >> datalength;
@@ -80,10 +20,10 @@ int main() {
 	if (seed == -2)
 	{
 		seed = 1;
-		elementMaxlength = 3;
-		wordMaxlength = 3;
-		expMax = 3;
-		maxKoeff = 3;
+		elementMaxlength = 4;
+		wordMaxlength = 4;
+		expMax = 4;
+		maxKoeff = 6;
 	}
 	else
 	{
@@ -102,7 +42,7 @@ int main() {
 	BarResElementGenerator<CoeffType>* elemgen = new RandomGenerator<CoeffType>(seed);
 	BarResElement<CoeffType> curelem, curelemboundary;
 
-	ofstream FILE("test.csv", ofstream::trunc);
+	ofstream FILE("experiment.csv", ofstream::trunc);
 	if (!FILE.is_open())
 	{
 		cout << "Datei kann nicht geschrieben werden.";
@@ -115,7 +55,7 @@ int main() {
 
 		curelemboundary = BarResElement<CoeffType>::boundaryOperator(curelem);
 
-		FILE << "\"" << curelem << "\";\"" << curelemboundary << "\";" << static_cast<double>(BarResElement<CoeffType>::norm(curelem))/BarResElement<CoeffType>::norm(curelemboundary) << endl;
+		FILE << "\"" << curelem << "\";\"" << curelemboundary << "\";" << static_cast<double>(BarResElement<CoeffType>::norm(curelem)) / BarResElement<CoeffType>::norm(curelemboundary) << endl;
 
 		cout << "\r" << i * 100 / datalength << "%";
 	}
@@ -124,24 +64,5 @@ int main() {
 	FILE.close();
 	cout << "\rDatei generiert!";
 	delete elemgen;
-	
-	
-	/*
-	WORD word1, word2, word3;
-	BarResElement<int> elem1, elem2;
 
-	
-	word2.push_back(0);
-	word2.push_back(-6);
-
-	deque<WORD> basis1 = {word1,word2,word3};
-
-	std::cout << basis1;
-	
-
-	word2.clear();
-	deque<WORD> basis2 = {word1,word2,word3};
-	
-	return 0;
-	*/
 }

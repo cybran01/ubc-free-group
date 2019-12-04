@@ -18,9 +18,6 @@
     <ClCompile Include="bachelorarbeit.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="INTERFACE_FILTER.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="RandomGenerator.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -35,9 +32,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="INTERFACE_FILTER.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="RandomGenerator.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
