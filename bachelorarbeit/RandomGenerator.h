@@ -29,6 +29,9 @@ public:
 
 	}
 
+private:
+	int rndSeed;
+	Numeric nextCoefficient(int maxkoeff) const;
 	WORD nextWord(int maxlength, int maxexp) //generiert ein Word der maximalen Länge maxlength und mit maximalem Exponenten maxexp
 	{
 		WORD res;
@@ -47,8 +50,5 @@ public:
 		return res;
 	}
 
-private:
-	int rndSeed;
-	Numeric nextCoefficient(int maxkoeff);
 };
 
