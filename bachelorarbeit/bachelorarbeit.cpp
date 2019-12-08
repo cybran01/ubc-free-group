@@ -10,8 +10,8 @@ using namespace std;
 
 typedef int CoeffType; //Datentyp für Koeffizienten der Bar-Auflösung; durch Überladen von den notwendigen arithmetischen Operatoren und spezifizieren einer Methode für Zufallsgeneration des Datentyps in RandomGenerator.cpp (wie für den Typ double) können hier auch benutzerdefinierte Typen benutzt werden, z.B. für exakte rationale Arithmetik 
 
-int main() {
 
+int main() {
 	int seed, datalength, elementMaxlength, wordMaxlength, expMax, maxKoeff;
 	cout << "Gr\x94\xE1" << "e des Datensatzes eingeben: ";
 	cin >> datalength;
@@ -20,7 +20,7 @@ int main() {
 	if (seed == -2)
 	{
 		seed = 1;
-		elementMaxlength = 4;
+		elementMaxlength = 6;
 		wordMaxlength = 4;
 		expMax = 4;
 		maxKoeff = 6;
@@ -53,9 +53,9 @@ int main() {
 	{
 		curelem = elemgen->nextElement(elementMaxlength, wordMaxlength, expMax, maxKoeff, 4);
 
-		curelemboundary = BarResElement<CoeffType>::boundaryOperator(curelem);
+		curelemboundary = curelem.boundaryOperator();
 
-		FILE << "\"" << curelem << "\";\"" << curelemboundary << "\";" << static_cast<double>(BarResElement<CoeffType>::norm(curelem)) / BarResElement<CoeffType>::norm(curelemboundary) << endl;
+		FILE << "\"" << curelem << "\";\"" << curelemboundary << "\";" << static_cast<double>(curelem.norm()) / curelemboundary.norm() << endl;
 
 		cout << "\r" << i * 100 / datalength << "%";
 	}
@@ -64,5 +64,6 @@ int main() {
 	FILE.close();
 	cout << "\rDatei generiert!";
 	delete elemgen;
-
+	
+	return 0;
 }

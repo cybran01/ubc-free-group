@@ -12,18 +12,11 @@ template <typename Numeric>
 class BarResElement : public std::map<std::deque<WORD>, Numeric>//Definition von Elementen der Bar-Auflösung als geordnete (via von Compiler generiertem operator<) Map von Paaren (Basiselement, Koeffizient) womit Basiselemente eindeutig sind
 {
 public:
-	inline std::string toString()
-	{
-		std::stringstream strstream;
-		strstream << boundaryOperator(*this);
-
-		return strstream.str();
-	}
-	static BarResElement<Numeric> boundaryOperator(const BarResElement<Numeric>& elem) //Randoperator 
+	BarResElement<Numeric> boundaryOperator() const //Randoperator 
 	{
 		BarResElement<Numeric> res;
 
-		for (auto const& x : elem)
+		for (auto const& x : *this)
 		{
 			res += x.second * (boundaryOperatorOnBasis(x.first));
 		}
@@ -31,10 +24,10 @@ public:
 		return res;
 	}
 
-	static Numeric norm(const BarResElement<Numeric>& elem) //Definition der l^1-Norm
+	Numeric norm() const //Definition der l^1-Norm
 	{
 		Numeric res = 0;
-		for (auto const& x : elem)
+		for (auto const& x : *this)
 		{
 			res += abs(x.second);
 		}
@@ -43,11 +36,10 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const BarResElement<Numeric>& elem) {
 		std::ios_base::fmtflags f(std::cout.flags());
-
+		
 		for (auto const& x : elem)
 		{
-
-			os << std::showpos << x.second << "*" << x.first;
+			os << std::showpos << x.second << "*" << x.first;	
 		}
 
 		std::cout.flags(f);
@@ -69,7 +61,7 @@ public:
 
 	}
 
-	friend 	BarResElement<Numeric> operator*(Numeric r, BarResElement<Numeric> elem) //Definition der Skalarmultiplikation von Elementen der Bar-Auflösung
+	friend BarResElement<Numeric> operator*(Numeric r, BarResElement<Numeric> elem) //Definition der Skalarmultiplikation von Elementen der Bar-Auflösung
 	{
 		if (r == 0)
 		{
@@ -98,25 +90,23 @@ private:
 		}
 	}
 
-	static BarResElement<Numeric> boundaryOperatorOnBasis(const std::deque<WORD>& basisElement) //Randoperator auf den Basiselementen, basisElement.size()>0 muss gelten (für unseren Fall gegeben)
+	BarResElement<Numeric> boundaryOperatorOnBasis(const std::deque<WORD>& basisElement) const //Randoperator auf den Basiselementen, basisElement.size()>0 muss gelten (für unseren Fall gegeben)
 	{
 		BarResElement res;
-		std::deque<WORD> tmp = basisElement;
-		tmp.pop_front();
-		res[tmp] = 1;
+		std::deque<WORD> tmp;
 
 		for (unsigned int i = 0; i < basisElement.size() - 1; i++) {
 			tmp = basisElement;
-			tmp[i + 1] = tmp[i] * tmp[i + 1];
-			tmp.erase(tmp.begin() + i);
+			tmp[i] = tmp[i] * tmp[i + 1];
+			tmp.erase(tmp.begin() + (i+1));
 
-			res.addSingleSummand(tmp, parity(i + 1));
+			res.addSingleSummand(tmp, parity(i));
 		}
 
 		tmp = basisElement;
 		tmp.pop_back();
 
-		res.addSingleSummand(tmp, parity(basisElement.size()));
+		res.addSingleSummand(tmp, parity(basisElement.size()-1));
 
 		return res;
 	}

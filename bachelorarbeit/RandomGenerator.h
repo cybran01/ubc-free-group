@@ -11,13 +11,14 @@ public:
 	BarResElement<Numeric> RandomGenerator<Numeric>::nextElement(int elementMaxlength, int wordMaxlength, int expMax, int maxKoeff, int degree) //generiert ein Element aus der Bar-Auflösung vom Grad degree
 	{
 		BarResElement<Numeric> res;
+
 		int length = (rand() % elementMaxlength) + 1;//einziges Element der Länge 0 ist das Nullelement und uninteressant
 		for (int i = 0; i < length; i++) {
 
 			BarResElement<Numeric> tmpelem;
 			std::deque<WORD> tmpbasis;
 
-			for (int ii = 0; ii < degree; ii++) {
+			for (int ii = 0; ii < degree+1; ii++) {
 				tmpbasis.push_back(nextWord(wordMaxlength, expMax));
 			}
 

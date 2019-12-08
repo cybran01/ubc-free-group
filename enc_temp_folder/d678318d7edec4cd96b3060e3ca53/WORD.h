@@ -34,7 +34,7 @@ public:
 inline std::ostream& operator<<(std::ostream& os, const std::deque<WORD>& elem) {
 	std::ios_base::fmtflags f(std::cout.flags());
 
-	if (elem.size() > 0 && elem[0].size() > 0)
+	if (elem.size() > 0 && elem[0].size() != 0)
 		os << elem[0] << "*";
 
 	os << "[";
