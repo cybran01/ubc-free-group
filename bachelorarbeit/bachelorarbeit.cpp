@@ -18,7 +18,7 @@ int main() {
 	cout << "Seed eingeben (-1 um Systemzeit zu benutzen, -2 f\x81r default-Werte): ";
 	cin >> seed;
 	if (seed == -2)
-	{
+	{//Default-Parameter
 		seed = 1;
 		elementMaxlength = 6;
 		wordMaxlength = 4;
@@ -51,13 +51,14 @@ int main() {
 
 	for (int i = 0; i < datalength; i++)
 	{
-		curelem = elemgen->nextElement(elementMaxlength, wordMaxlength, expMax, maxKoeff, 4);
+		curelem = elemgen->nextElement(elementMaxlength, wordMaxlength, expMax, maxKoeff, 4);//generiere nächstes Element
 
-		curelemboundary = curelem.boundaryOperator();
+		curelemboundary = curelem.boundaryOperator();//wende Randoperator auf das Element an
 
-		FILE << "\"" << curelem << "\";\"" << curelemboundary << "\";" << static_cast<double>(curelem.norm()) / curelemboundary.norm() << endl;
+		FILE << "\"" << curelem << "\";\"" << curelemboundary << "\";" << static_cast<double>(curelem.norm()) / curelemboundary.norm() << endl;//schreibe Tripel (curelem,curelemboundary,||curelem||/||curelemboundary||) in Datensatz
 
-		cout << "\r" << i * 100 / datalength << "%";
+		if (i * 100.0 / datalength == i * 100 / datalength)
+			cout << "\r" << i * 100 / datalength << "%";
 	}
 
 

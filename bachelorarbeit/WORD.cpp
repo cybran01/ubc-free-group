@@ -1,6 +1,6 @@
 #include "WORD.h"
 
-WORD operator*(WORD op1, WORD op2)//Gruppenoperation auf F_2, akzeptiert reduzierte Wörter, berechnet Ergebnis rekursiv und gibt Ergebnis in reduzierter Darstellung aus
+WORD operator*(WORD op1, WORD op2)//Gruppenoperation auf F_2, berechnet Ergebnis der Verknüpfung der (bereits reduzierten) Wörter op1*op2 rekursiv und gibt Ergebnis in reduzierter Darstellung aus
 {
 	if (op1.isTrivial())
 	{
@@ -11,7 +11,7 @@ WORD operator*(WORD op1, WORD op2)//Gruppenoperation auf F_2, akzeptiert reduzie
 		return WORD::normalize(op1);
 	}
 
-	bool secondStartsWithA = (op2[0] != 0);//bestimmt ob op2 mit mit a oder b anfängt
+	bool secondStartsWithA = (op2[0] != 0);//bestimmt, ob op2 mit mit a oder b anfängt
 	bool firstEndNotSecondBegin = ((op1.size() % 2) == 0) == secondStartsWithA;//bestimmt, ob das Ende von op1 ungleich dem Anfang von op2 ist
 
 	if (!secondStartsWithA)//Entferne vorhergehende 0 falls op2 mit b anfängt 
