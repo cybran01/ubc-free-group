@@ -18,7 +18,7 @@ int main() {
 	cout << "Seed eingeben (-1 um Systemzeit zu benutzen, -2 f\x81r default-Werte): ";
 	cin >> seed;
 	if (seed == -2)
-	{//Default-Parameter
+	{//Default-Parameter, die für den Datensatz der Bachelorarbeit verwendet werden
 		seed = 1;
 		elementMaxlength = 6;
 		wordMaxlength = 4;
